@@ -1,0 +1,15 @@
+- name: install prometheus for centos
+  yum:
+    name:
+      - epel-release
+      - snapd
+    state: latest
+  when: ansible_distribution == "CentOS"
+
+- name: enabling snapd
+  command: systemctl enable --now snapd.socket
+  when: ansible_distribution == "CentOS"
+
+- name: prometheus for CentOS
+  command: snap install prometheus --classic
+  when: ansible_distribution == "CentOS"
